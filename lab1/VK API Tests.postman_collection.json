@@ -1,0 +1,80 @@
+{
+	"info": {
+		"_postman_id": "5aead185-32d0-4e13-a44f-fef8ce583aa3",
+		"name": "VK API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Subscriptions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4bd8ff70-a829-4db5-9459-7a7d692e1310",
+						"exec": [
+							"// проверка соответствия имени пользователя значению из json\r",
+							"pm.test(\"Test1\", function() {\r",
+							"    var jsonData = JSON.parse(responseBody); \r",
+							"    pm.expect(jsonData.response[0].first_name).to.eql(\"Grażyna\");\r",
+							"})\r",
+							"\r",
+							"// проверка соответствия id пользователя значению из json\r",
+							"pm.test(\"Test2\", function() {\r",
+							"    var jsonData = JSON.parse(responseBody); \r",
+							"    pm.expect(jsonData.response[0].id).to.eql(289931984);\r",
+							"})\r",
+							"\r",
+							"// проверка скорости ответа (менее 500 мс)\r",
+							"pm.test(\"Test3\", function() {\r",
+							"    var jsonData = JSON.parse(responseBody); \r",
+							"    pm.expect(pm.response.responseTime).to.be.below(500)\r",
+							"})\r",
+							"\r",
+							"// проверка, вернулся ли json\r",
+							"pm.test(\"Test4\", function() {\r",
+							"    var jsonData = JSON.parse(responseBody); \r",
+							"    pm.expect(pm.response).to.have.header(\"Content-Type\", \"application/json; charset=utf-8\");\r",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://api.vk.com/method/users.get?user_id=289931984&v=5.52&access_token=5e78bd6fb064083280c6fd12cbbc94e02fe0ef0d1057157f7806b1840b1eb1fdbc9ed8ba4db9be83bba3d",
+					"protocol": "https",
+					"host": [
+						"api",
+						"vk",
+						"com"
+					],
+					"path": [
+						"method",
+						"users.get"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "289931984"
+						},
+						{
+							"key": "v",
+							"value": "5.52"
+						},
+						{
+							"key": "access_token",
+							"value": "5e78bd6fb064083280c6fd12cbbc94e02fe0ef0d1057157f7806b1840b1eb1fdbc9ed8ba4db9be83bba3d"
+						}
+					]
+				},
+				"description": "getting subs from a user"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
